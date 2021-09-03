@@ -28,7 +28,11 @@ work_layer.dataProvider().addAttributes([QgsField("PS_Fs", QVariant.Double),
                                         QgsField("Risk_Pa", QVariant.Double),
                                         QgsField("PS_total", QVariant.Double),
                                         QgsField("LS_total", QVariant.Double),
-                                        QgsField("Risk_total", QVariant.Double),])
+                                        QgsField("Risk_total", QVariant.Double),
+                                        QgsField("LS_Fs_r", QVariant.Double), 
+                                        QgsField("LS_Ps_r", QVariant.Double),
+                                        QgsField("LS_Pa_r", QVariant.Double),
+                                        QgsField("LS_total_r", QVariant.Double), ])
         
 work_layer.updateFields()
 
@@ -44,6 +48,10 @@ expression9 = QgsExpression('("R_FsZmedia"/1000)*"gsv_pic"')
 expression10 = QgsExpression('"PS_Fs"+"PS_Ps"+"PS_Pa"')
 expression11 = QgsExpression('"LS_Fs"+"LS_Ps"+"LS_Pa"')
 expression12 = QgsExpression('"Risk_Fs"+"Risk_Ps"+"Risk_Pa"')
+expression13 = QgsExpression('"LS_Fs"*100/"gsv_fag"')
+expression14 = QgsExpression('"LS_Ps"*100/"gsv_pin"')
+expression15 = QgsExpression('"LS_Pa"*100/"gsv_pic"')
+expression16 = QgsExpression('"LS_total"*100/("gsv_fag"+"gsv_pic"+"gsv_pin")')
 
 context = QgsExpressionContext()
 context.appendScopes(QgsExpressionContextUtils.globalProjectLayerScopes(work_layer))
@@ -87,3 +95,14 @@ with edit(work_layer):
         work_layer.updateFeature(f)
 
 print("total done")    
+
+with edit(work_layer):
+    for f in work_layer.getFeatures():
+        context.setFeature(f)
+        f['LS_Fs_r'] = expression13.evaluate(context)
+        f['LS_Ps_r'] = expression14.evaluate(context)
+        f['LS_Pa_r'] = expression15.evaluate(context)
+        f['LS_total_r'] = expression16.evaluate(context)
+        work_layer.updateFeature(f)
+
+print("% done")    

@@ -20,7 +20,7 @@ def open_tree_files():
     
 open_tree_files()
 layer_list.append(iface.addVectorLayer(f'{FRM_dir}NUTS2.shp', 'NUTS2', 'ogr'))
-layer_list.append(iface.addRasterLayer(f'{FRM_dir}EFI_Forest_WGS.tif', 'Forestshare'))
+layer_list.append(iface.addRasterLayer(f'{FRM_dir}EFI_Forest_WGS.tif', 'EFI_Forest_WGS'))
 
 for layer in QgsProject.instance().mapLayers().values():
     layer.setCrs(QgsCoordinateReferenceSystem('EPSG:4326'))
