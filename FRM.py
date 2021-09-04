@@ -1,5 +1,5 @@
-# noch nicht ganz fertig:
-# fieldcalc feldernamen ändern, dann OK!!!
+# Carina Heiling
+# 2021_09_01
 
 from pathlib import Path
 import sys
