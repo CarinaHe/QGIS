@@ -47,9 +47,9 @@ try:
         boh2.bandNumber = 1
         entries.append( boh2 )
             
-        outPath = '/home/c/Schreibtisch/BFW/Projekt_ForestRiskMap/output/'+fileName[:4]+'_rc.tif'    
+        outPath = '/home/c/Schreibtisch/BFW/Projekt_ForestRiskMap/rastercalc/'+fileName[:4]+'_rc.tif'    
             # Process calculation with input extent and resolution
-        calc = QgsRasterCalculator( "('boh@1'/100)*(1000-'boh@2')", outPath,
+        calc = QgsRasterCalculator( "('boh@1'/100)*('boh@2')", outPath,
                                         'GTiff', input_raster1.extent(),
                                         input_raster1.width(), input_raster1.height(), entries )
         calc.processCalculation()
